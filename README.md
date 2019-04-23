@@ -1,7 +1,7 @@
 # Blueprint Touch
 
 Hey everyone. I'm Remixie and this is my entry for the Flutter Create contest. It's a technical drawing app that's optimized for touchscreen devices.
-***
+
 
 ## Tech Specs
 - Dart file size: 5,117 bytes
@@ -13,11 +13,11 @@ Hey everyone. I'm Remixie and this is my entry for the Flutter Create contest. I
   - iPhone 6 (Simulator on macOS)
   - Pixel 2 API 28 / Android Pie (Virtual Device in Android Studio)
   - Pixel 3 with Android Pie
-***
+
 
 ## Visual Layout
 ![Layout of Blueprint Touch!](layout.png)
-***
+
 
 ## Setup
 1. Make a new Flutter Project (Flutter Application) in Android Studio
@@ -25,9 +25,9 @@ Hey everyone. I'm Remixie and this is my entry for the Flutter Create contest. I
 3. Replace the generated `pubspec.yaml` with the one provided in the zip file
 4. Make an `assets` directory in the same directory as `lib`
 5. Move `Blueprint-Paper-by-RetinaShots.png` to the `assets` directory
-6. Click `packages get` and verify that nothing is underlined with red in `main.dart` upon saving it
+6. Click `packages get` while in the `pubspec.yaml` tab and verify that nothing is underlined with red in `main.dart` upon saving it
 7. Run `flutter run --release -d <device id>` on the Flutter project directory but not before replacing `<device id>`
-***
+
 
 ## Usage Guide
 
@@ -40,7 +40,7 @@ Hey everyone. I'm Remixie and this is my entry for the Flutter Create contest. I
 - `Tap on the straightedge` to make points and/or line segments at more precise coordinates
 
 **Note:** If you tap on the straightedge at around the same coordinates where an existing point is located, your tap will be registered as a reuse, **not** as a new point aligned with the straightedge.
-***
+
 
 ## Execution Notes
 In terms of UI/UX, tons of details were taken into account. These are some of them:
@@ -52,7 +52,7 @@ In terms of UI/UX, tons of details were taken into account. These are some of th
 - The straightedge has a *`hidden hitbox area`* that detects when a user taps within 35 pixels of it
 - Line segments are drawn with **StrokeCap.round** so that *`corners are smooth and notch-less`*
 - The blueprint background doubles as grid paper. This facilitates the *`exact positioning`* of the straightedge, points and line segments
-***
+
 
 ## Documentation
 The `main()` function runs `MyApp`.  
@@ -60,7 +60,7 @@ The `main()` function runs `MyApp`.
 `DrawPage` is a StatefulWidget that builds `ScopedModel<MathModel>` and returns a `Scaffold`.  
 
 
-The `Scaffold` returns a Stack widget whose children are a Container and another Stack. The Container has has a Listener that detects when a user taps on it and calls `MathModel.moveSEdge()` and `Painter`. Its background is set to the public domain grid image asset provided by [Retina Shots](http://ipad.retinashots.com/). The child Stack returns two instances of `DragDot`.
+The `Scaffold` returns a Stack widget whose children are a Container and another Stack. The Container has a Listener that detects when a user taps on it and calls `MathModel.moveSEdge()` and `Painter`. Its background is set to the public domain grid image asset provided by [Retina Shots](http://ipad.retinashots.com/). The child Stack returns two instances of `DragDot`.
 
 ### `DragDot`
 This is a Stateful widget that creates a `DragDotState`.
@@ -114,7 +114,7 @@ This is a CustomPainter class that handles the rendering of blueprint paper obje
 - Methods:
   - `void paint()`
     - This draws all the points in `u`, line segments, the straightedge and its black dots
-***
+
 
 ## Roadmap
 Blueprint Touch has a long way to go before it becomes **the** standard for technical drawings on touchscreen devices. This is the current list of future developments, ordered by priority:
@@ -124,7 +124,7 @@ Blueprint Touch has a long way to go before it becomes **the** standard for tech
 4. Transform the blueprint paper area to be a zoomable viewport
 
 ETA for these developments: Q3 2019
-***
+
 
 ## References
 
@@ -149,5 +149,3 @@ Write your first Flutter app, part 1. (n.d.). Retrieved March 1, 2019, from http
 Write Your First Flutter App, part 2. (n.d.). Retrieved March 3, 2019, from https://codelabs.developers.google.com/codelabs/first-flutter-app-pt2/
 
 Xia, M., Sullivan, M., & Williams, J. (n.d.). Build Native Mobile Apps with Flutter. Retrieved March 6, 2019, from https://www.udacity.com/course/build-native-mobile-apps-with-flutter--ud905
-
-***
