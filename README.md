@@ -126,6 +126,35 @@ Blueprint Touch has a long way to go before it becomes **the** standard for tech
 ETA for these developments: Q3 2019
 
 
+## Continuous Integration & Automated Builds
+
+This project is set up with Travis CI for automated Android APK builds and releases:
+
+### Features
+- **Automated APK Building**: Every push to the repository triggers an Android APK build
+- **Continuous Releases**: Successfully built APKs are automatically uploaded to GitHub Releases
+- **Flutter Environment**: Travis CI automatically sets up Flutter SDK and Android build tools
+- **Caching**: Dependencies and Flutter SDK are cached to speed up builds
+
+### Configuration
+The CI setup is configured in [`.travis.yml`](.travis.yml) and includes:
+- Flutter SDK installation and setup
+- Android SDK components (API 30, build-tools 30.0.3)
+- Automated project structure creation for Flutter builds
+- Code analysis with `flutter analyze`
+- Release APK compilation
+- Automatic upload to GitHub Releases using [probonopd/uploadtool](https://github.com/probonopd/uploadtool)
+
+### Setup Requirements
+To enable the automated uploads, a repository maintainer needs to:
+1. Set up a GitHub Personal Access Token with `contents: write` permission
+2. Add the token as `GITHUB_TOKEN` environment variable in Travis CI repository settings
+3. Enable Travis CI for this repository
+
+### Download Latest APK
+The latest automatically built APK can always be downloaded from the [Releases page](../../releases/tag/continuous).
+
+
 ## References
 
 boeledi. (2018, March 21). Flutter: how to prevent device orientation changes and force portrait? Retrieved March 21, 2019, from https://stackoverflow.com/questions/44179889/flutter-sdk-set-background-image

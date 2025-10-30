@@ -1,0 +1,73 @@
+os: linux
+dist: focal
+language: android
+jdk: openjdk8
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-30.0.3
+    - android-30
+    - extra-android-m2repository
+
+env:
+  global:
+    - FLUTTER_CHANNEL=stable
+    - FLUTTER_VERSION=3.3.0
+    # Add GITHUB_TOKEN as secure environment variable in Travis CI settings
+
+cache:
+  directories:
+    - $HOME/.pub-cache
+    - $HOME/flutter
+
+before_install:
+  # Install Flutter
+  - |
+    if [ ! -d "$HOME/flutter" ]; then
+      git clone https://github.com/flutter/flutter.git -b $FLUTTER_CHANNEL --depth 1 $HOME/flutter
+    fi
+  - export PATH="$HOME/flutter/bin:$PATH"
+  - flutter doctor -v
+  # Create Flutter project structure if it doesn't exist
+  - |
+    if [ ! -f "android/build.gradle" ]; then
+      # Backup our custom files
+      cp lib/main.dart main_backup.dart
+      cp pubspec.yaml pubspec_backup.yaml
+      cp assets/Blueprint-Paper-by-RetinaShots.png blueprint_backup.png
+      # Create Flutter project
+      flutter create --project-name blueprint_touch --org com.remixie.blueprinttouch --android-language java --platforms android .
+      # Restore our custom files
+      cp main_backup.dart lib/main.dart
+      cp pubspec_backup.yaml pubspec.yaml
+      mkdir -p assets
+      cp blueprint_backup.png assets/Blueprint-Paper-by-RetinaShots.png
+      # Clean up backup files
+      rm main_backup.dart pubspec_backup.yaml blueprint_backup.png
+    fi
+
+script:
+  # Get dependencies
+  - flutter pub get
+  # Analyze code
+  - flutter analyze
+  # Build APK
+  - flutter build apk --release
+
+after_success:
+  # Check if APK was built successfully
+  - ls -la build/app/outputs/flutter-apk/
+  # Upload APK using probonopd/uploadtool
+  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+  - bash upload.sh build/app/outputs/flutter-apk/app-release.apk
+
+branches:
+  except:
+    - /^(?i:continuous)$/
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
