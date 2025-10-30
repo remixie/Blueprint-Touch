@@ -24,26 +24,28 @@ cache:
 
 before_install:
   # Install Flutter
-  - if [ ! -d "$HOME/flutter" ]; then
-      git clone https://github.com/flutter/flutter.git -b $FLUTTER_CHANNEL --depth 1 $HOME/flutter;
+  - |
+    if [ ! -d "$HOME/flutter" ]; then
+      git clone https://github.com/flutter/flutter.git -b $FLUTTER_CHANNEL --depth 1 $HOME/flutter
     fi
   - export PATH="$HOME/flutter/bin:$PATH"
   - flutter doctor -v
   # Create Flutter project structure if it doesn't exist
-  - if [ ! -f "android/build.gradle" ]; then
+  - |
+    if [ ! -f "android/build.gradle" ]; then
       # Backup our custom files
-      cp lib/main.dart main_backup.dart;
-      cp pubspec.yaml pubspec_backup.yaml;
-      cp assets/Blueprint-Paper-by-RetinaShots.png blueprint_backup.png;
+      cp lib/main.dart main_backup.dart
+      cp pubspec.yaml pubspec_backup.yaml
+      cp assets/Blueprint-Paper-by-RetinaShots.png blueprint_backup.png
       # Create Flutter project
-      flutter create --project-name blueprint_touch --org com.remixie.blueprinttouch --android-language java --platforms android .;
+      flutter create --project-name blueprint_touch --org com.remixie.blueprinttouch --android-language java --platforms android .
       # Restore our custom files
-      cp main_backup.dart lib/main.dart;
-      cp pubspec_backup.yaml pubspec.yaml;
-      mkdir -p assets;
-      cp blueprint_backup.png assets/Blueprint-Paper-by-RetinaShots.png;
+      cp main_backup.dart lib/main.dart
+      cp pubspec_backup.yaml pubspec.yaml
+      mkdir -p assets
+      cp blueprint_backup.png assets/Blueprint-Paper-by-RetinaShots.png
       # Clean up backup files
-      rm main_backup.dart pubspec_backup.yaml blueprint_backup.png;
+      rm main_backup.dart pubspec_backup.yaml blueprint_backup.png
     fi
 
 script:
